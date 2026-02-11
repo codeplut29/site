@@ -3,241 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Каталог софтов</title>
+<title>Standoff Ultra Pro</title>
 
 <style>
 :root{
-  --accent:#14b8a6;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Segoe UI, sans-serif;
+  --bg:#0a0a14;
+  --card:rgba(255,255,255,0.05);
+  --accent:#00f0ff;
+  --accent2:#ff00c8;
+  --text:#ffffff;
+  --muted:#aaaaaa;
 }
 
 body{
+  margin:0;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
   overflow-x:hidden;
-  color:#1f2937;
-  background:linear-gradient(-45deg,#dffcf8,#c7f5ef,#b2f0e8,#e6fffb);
-  background-size:400% 400%;
-  animation:gradient 15s ease infinite;
 }
 
-@keyframes gradient{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+/* SPACE BACKGROUND */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
 }
 
-h1{
+/* HEADER */
+header{
   text-align:center;
-  padding:30px;
-  font-size:32px;
-  color:var(--accent);
+  padding:50px 20px 20px;
 }
 
-.container{
-  max-width:950px;
-  margin:auto;
+header h1{
+  font-size:48px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+header p{
+  color:var(--muted);
+}
+
+/* CONTROLS */
+.controls{
+  text-align:center;
   padding:20px;
 }
 
-/* Плавающие фоновые круги */
-.bg-circle{
-  position:fixed;
-  border-radius:50%;
-  background:rgba(20,184,166,0.15);
-  z-index:-1;
-  animation:float 12s infinite ease-in-out;
-}
-
-.bg-circle:nth-child(1){
-  width:220px;height:220px;
-  top:60%;left:10%;
-}
-
-.bg-circle:nth-child(2){
-  width:160px;height:160px;
-  top:20%;left:75%;
-  animation-duration:16s;
-}
-
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-40px)}
-  100%{transform:translateY(0)}
-}
-
-/* Карточки */
-.block{
-  background:rgba(255,255,255,0.85);
-  backdrop-filter:blur(12px);
-  border-radius:20px;
-  padding:25px;
-  margin-bottom:35px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.1);
-  text-align:center;
-  opacity:0;
-  transform:translateY(40px);
-  animation:fadeUp 0.8s forwards;
-}
-
-.block:nth-child(1){animation-delay:0.2s}
-.block:nth-child(2){animation-delay:0.4s}
-.block:nth-child(3){animation-delay:0.6s}
-
-@keyframes fadeUp{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.block:hover{
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 20px 45px rgba(0,0,0,0.15);
-}
-
-.block img{
-  width:100%;
-  max-width:260px;
-  border-radius:15px;
-  margin:15px 0;
-}
-
-.price{
-  font-size:18px;
-  margin:8px 0;
-}
-
-/* Таблица */
-.table-wrap{
-  background:rgba(255,255,255,0.85);
-  backdrop-filter:blur(12px);
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.1);
-  margin-top:20px;
-  opacity:0;
-  transform:translateY(40px);
-  animation:fadeUp 0.8s forwards;
-  animation-delay:0.8s;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  text-align:center;
-}
-
-th{
-  color:var(--accent);
-  padding:12px;
-  font-size:18px;
-}
-
-td{
-  padding:12px;
-  border-top:1px solid #ddd;
-}
-
-/* Кнопка вверх */
-.top-btn{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:var(--accent);
-  color:white;
+input,select,button{
+  padding:10px 15px;
+  margin:5px;
+  border-radius:12px;
   border:none;
-  border-radius:50%;
-  width:55px;
-  height:55px;
-  font-size:22px;
+  outline:none;
+  font-size:14px;
+}
+
+input{
+  width:200px;
+}
+
+button{
   cursor:pointer;
-  display:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#000;
+  font-weight:bold;
   transition:0.3s;
 }
 
-.top-btn:hover{
-  transform:scale(1.15);
+button:hover{
+  transform:scale(1.1);
+}
+
+/* GRID */
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+  padding:40px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  backdrop-filter:blur(15px);
+  padding:25px;
+  border-radius:25px;
+  position:relative;
+  transition:0.4s;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.card:hover{
+  transform:translateY(-10px) rotateX(3deg);
+  box-shadow:0 0 30px var(--accent);
+}
+
+.card h2{
+  margin-top:0;
+  color:var(--accent);
+}
+
+.rating{
+  font-weight:bold;
+  margin:5px 0;
+}
+
+.desc{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.more{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.5s ease;
+}
+
+.card.active .more{
+  max-height:400px;
+  margin-top:10px;
+}
+
+.favorite{
+  position:absolute;
+  top:15px;
+  right:20px;
+  cursor:pointer;
+  font-size:22px;
+}
+
+/* TOP BUTTON */
+.topBtn{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  display:none;
+  border-radius:50%;
+  width:55px;
+  height:55px;
+  font-size:20px;
+}
+
+footer{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
 }
 </style>
 </head>
-
 <body>
 
-<div class="bg-circle"></div>
-<div class="bg-circle"></div>
+<canvas id="space"></canvas>
 
-<h1>Каталог софтов</h1>
+<header>
+<h1>Standoff Ultra Pro</h1>
+<p>GLOBAL 300% FINAL VERSION</p>
+</header>
 
-<div class="container">
+<div class="controls">
+<input type="text" id="search" placeholder="Поиск..." onkeyup="filterCards()">
+<select id="category" onchange="filterCards()">
+<option value="all">All</option>
+<option value="popular">Popular</option>
+<option value="premium">Premium</option>
+<option value="free">Free</option>
+<option value="top">Top Rated</option>
+<option value="new">New</option>
+<option value="fav">Favorites</option>
+</select>
+<select onchange="sortCards(this.value)">
+<option value="ratingDesc">Rating ↓</option>
+<option value="ratingAsc">Rating ↑</option>
+<option value="nameAsc">Name A-Z</option>
+</select>
+</div>
 
-  <div class="block">
-    <h2 style="color:var(--accent)">Zenin</h2>
-    <img src="zenin.jpg" alt="Zenin">
-    <div class="price">7 days – 4$</div>
-    <div class="price">30 days – 6$</div>
-    <div class="price">90 days – 17$</div>
-  </div>
+<div class="container" id="cards">
 
-  <div class="block">
-    <h2 style="color:var(--accent)">Plutonium</h2>
-    <img src="plutonium.jpg" alt="Plutonium">
-    <div class="price">7 days – 3.99$</div>
-    <div class="price">30 days – 6.88$</div>
-    <div class="price">90 days – 15$</div>
-  </div>
+<div class="card" data-name="Alpha" data-rating="9.9" data-category="popular top">
+<div class="favorite" onclick="toggleFav(this)">☆</div>
+<h2>Alpha</h2>
+<div class="rating">9.9/10</div>
+<div class="desc">Топ популярный вариант</div>
+<button onclick="toggleMore(this)">Подробнее</button>
+<div class="more">Подробная информация внутри.</div>
+</div>
 
-  <div class="block">
-    <h2 style="color:var(--accent)">NerestPC</h2>
-    <img src="nerestpc.jpg" alt="NerestPC">
-    <div class="price">14 days – 2.99$</div>
-    <div class="price">30 days – 5.99$</div>
-    <div class="price">90 days – 13.99$</div>
-  </div>
+<div class="card" data-name="Bravo" data-rating="8.7" data-category="premium">
+<div class="favorite" onclick="toggleFav(this)">☆</div>
+<h2>Bravo</h2>
+<div class="rating">8.7/10</div>
+<div class="desc">Premium версия</div>
+<button onclick="toggleMore(this)">Подробнее</button>
+<div class="more">Подробности о версии.</div>
+</div>
 
-  <div class="table-wrap">
-    <h2 style="text-align:center;color:var(--accent)">Сравнение</h2>
-    <table>
-      <tr>
-        <th>Софт</th>
-        <th>Платформа</th>
-        <th>Цена от</th>
-        <th>Рейтинг</th>
-      </tr>
-      <tr>
-        <td>Plutonium</td>
-        <td>Android</td>
-        <td>$3.99</td>
-        <td>★★★★★</td>
-      </tr>
-      <tr>
-        <td>NerestPC</td>
-        <td>PC</td>
-        <td>$2.99</td>
-        <td>★★★★☆</td>
-      </tr>
-      <tr>
-        <td>Zenin</td>
-        <td>Android</td>
-        <td>$4</td>
-        <td>★★★★☆</td>
-      </tr>
-    </table>
-  </div>
+<div class="card" data-name="FreeX" data-rating="7.5" data-category="free new">
+<div class="favorite" onclick="toggleFav(this)">☆</div>
+<h2>FreeX</h2>
+<div class="rating">7.5/10</div>
+<div class="desc">Бесплатный вариант</div>
+<button onclick="toggleMore(this)">Подробнее</button>
+<div class="more">Описание бесплатной версии.</div>
+</div>
 
 </div>
 
-<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="topBtn" onclick="scrollTop()">↑</button>
+
+<footer>© 2026 Ultra Pro Standoff</footer>
 
 <script>
-window.addEventListener("scroll",function(){
-  const btn=document.querySelector(".top-btn");
-  btn.style.display = window.scrollY > 300 ? "block" : "none";
+/* TOGGLE */
+function toggleMore(btn){btn.parentElement.classList.toggle("active");}
+
+/* FILTER */
+function filterCards(){
+const search=document.getElementById("search").value.toLowerCase();
+const category=document.getElementById("category").value;
+document.querySelectorAll(".card").forEach(card=>{
+let show=card.dataset.name.toLowerCase().includes(search);
+if(category!=="all"){
+if(category==="fav") show=show && card.classList.contains("fav");
+else show=show && card.dataset.category.includes(category);
+}
+card.style.display=show?"block":"none";
 });
+}
+
+/* SORT */
+function sortCards(type){
+const container=document.getElementById("cards");
+const cards=[...container.children];
+cards.sort((a,b)=>{
+if(type==="ratingDesc") return b.dataset.rating-a.dataset.rating;
+if(type==="ratingAsc") return a.dataset.rating-b.dataset.rating;
+if(type==="nameAsc") return a.dataset.name.localeCompare(b.dataset.name);
+});
+cards.forEach(c=>container.appendChild(c));
+}
+
+/* FAVORITE */
+function toggleFav(el){
+const card=el.parentElement;
+card.classList.toggle("fav");
+el.textContent=card.classList.contains("fav")?"★":"☆";
+}
+
+/* SCROLL */
+window.onscroll=function(){
+document.querySelector(".topBtn").style.display=
+window.scrollY>300?"block":"none";
+}
+function scrollTop(){window.scrollTo({top:0,behavior:"smooth"});}
+
+/* SPACE PARTICLES */
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let stars=[];
+for(let i=0;i<120;i++){
+stars.push({x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2});
+}
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#ffffff";
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+s.y+=0.2;
+if(s.y>canvas.height) s.y=0;
+});
+requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
