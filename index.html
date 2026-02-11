@@ -118,6 +118,42 @@ font-size:12px;
 margin-bottom:10px;
 }
 
+/* BRAND STATUS */
+.status{
+display:inline-block;
+padding:4px 10px;
+border-radius:12px;
+font-size:11px;
+font-weight:bold;
+margin:6px 0;
+letter-spacing:1px;
+}
+
+.flagship{
+background:linear-gradient(45deg,#ffd700,#ffae00);
+color:black;
+box-shadow:0 0 10px #ffd700;
+}
+
+.pro{
+background:linear-gradient(45deg,#ff0055,#ff5500);
+color:white;
+box-shadow:0 0 10px #ff0055;
+}
+
+.pc{
+background:linear-gradient(45deg,#00c3ff,#005eff);
+color:white;
+box-shadow:0 0 10px #00c3ff;
+}
+
+.desc{
+font-size:14px;
+opacity:0.85;
+margin-top:8px;
+line-height:1.4;
+}
+
 .about{
 text-align:center;
 padding:40px 20px;
@@ -150,6 +186,7 @@ border-radius:20px;
 width:300px;
 text-align:center;
 box-shadow:0 0 25px var(--accent);
+white-space:pre-line;
 }
 
 .close{
@@ -179,39 +216,81 @@ margin-top:15px;
 
 <div class="container">
 
-<div class="card" data-type="Android" onclick="openModal('Zenin','Android','15.9')">
+<!-- ZENIN -->
+<div class="card" data-type="Android"
+onclick="openModal(
+'Zenin',
+'Android',
+'15.9',
+`Флагманская версия нового поколения.
+Максимальный контроль.
+Современная архитектура.
+Усиленная производительность.
+Создано для доминирования.`
+)">
 <img src="zenin.jpg">
 <div class="tag">Android</div>
 <h2>Zenin</h2>
-<p>Версия: 15.9</p>
+<div class="status flagship">FLAGSHIP</div>
+<p class="desc">
+Современная сборка нового поколения. Максимальный контроль. Чистая доминация.
+</p>
 </div>
 
-<div class="card" data-type="Android" onclick="openModal('Plutonium','Android','15.9')">
+<!-- PLUTONIUM -->
+<div class="card" data-type="Android"
+onclick="openModal(
+'Plutonium',
+'Android',
+'15.9',
+`PRO-конфигурация с расширенными возможностями.
+Гибкая настройка.
+Высокая адаптивность.
+Повышенная динамика.
+Производительность на пределе.`
+)">
 <img src="plutonium.jpg">
 <div class="tag">Android</div>
 <h2>Plutonium</h2>
-<p>Версия: 15.9</p>
+<div class="status pro">PRO BUILD</div>
+<p class="desc">
+Агрессивная конфигурация с расширенными возможностями и повышенной гибкостью.
+</p>
 </div>
 
-<div class="card" data-type="PC" onclick="openModal('NerestPC','PC','15.9')">
+<!-- NEREST PC -->
+<div class="card" data-type="PC"
+onclick="openModal(
+'NerestPC',
+'PC',
+'15.9',
+`PC Edition с усиленной стабильностью.
+Оптимизация под Windows.
+Высокая точность.
+Стабильная работа.
+Максимальный контроль.`
+)">
 <img src="nerestpc.jpg">
 <div class="tag">PC</div>
 <h2>NerestPC</h2>
-<p>Версия: 15.9</p>
+<div class="status pc">PC EDITION</div>
+<p class="desc">
+ПК-версия с повышенной точностью и стабильностью.
+</p>
 </div>
 
 </div>
 
 <div class="about">
-<h2>О проекте</h2>
-<p>Каталог версий и визуальный проект. Финальная стабильная версия 30.0.</p>
+<h2>Official Lineup 15.9</h2>
+<p>Финальная стабильная версия проекта. Release 30.0.</p>
 </div>
 
 <div class="footer">
 Release 30.0 FINAL • Stable Build
 </div>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
 <h2 id="modalTitle"></h2>
@@ -221,18 +300,15 @@ Release 30.0 FINAL • Stable Build
 </div>
 
 <script>
-/* Фильтр */
 function filterCards(type){
 localStorage.setItem("filter",type);
 applyFilters();
 }
 
-/* Поиск */
 function searchCards(){
 applyFilters();
 }
 
-/* Общая фильтрация */
 function applyFilters(){
 let filter=localStorage.getItem("filter")||"all";
 let search=document.getElementById("search").value.toLowerCase();
@@ -246,19 +322,12 @@ card.style.display=(matchFilter&&matchSearch)?"block":"none";
 });
 }
 
-/* Темы */
 function setTheme(theme){
 localStorage.setItem("theme",theme);
 
-if(theme==="dark"){
-setColors("#000","#111","#00ffe0");
-}
-if(theme==="neon"){
-setColors("#050510","#0f0f2a","#00ff88");
-}
-if(theme==="purple"){
-setColors("#1a002b","#2d004d","#c400ff");
-}
+if(theme==="dark") setColors("#000","#111","#00ffe0");
+if(theme==="neon") setColors("#050510","#0f0f2a","#00ff88");
+if(theme==="purple") setColors("#1a002b","#2d004d","#c400ff");
 }
 
 function setColors(bg,card,accent){
@@ -267,11 +336,12 @@ document.documentElement.style.setProperty('--card',card);
 document.documentElement.style.setProperty('--accent',accent);
 }
 
-/* Modal */
-function openModal(name,platform,version){
+function openModal(name,platform,version,description){
 document.getElementById("modalTitle").innerText=name;
 document.getElementById("modalInfo").innerText=
-"Платформа: "+platform+"\nВерсия: "+version;
+"Платформа: "+platform+
+"\nВерсия: "+version+
+"\n\n"+description;
 document.getElementById("modal").style.display="flex";
 }
 
