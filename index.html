@@ -398,7 +398,49 @@ function toggleAccent(){
 /* back to top */
 window.addEventListener('scroll',()=>{
   topBtn.style.display = window.scrollY>400 ? 'block':'none';
-});
+});/* ===== АНИМАЦИЯ КАРТОЧЕК ===== */
+
+.block {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 0.7s ease forwards;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* задержка по очереди */
+.block:nth-of-type(1) { animation-delay: 0.1s; }
+.block:nth-of-type(2) { animation-delay: 0.3s; }
+.block:nth-of-type(3) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== ЭФФЕКТ НАВЕДЕНИЯ ===== */
+
+.block:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ===== ПЛАВНОЕ ПОЯВЛЕНИЕ ТАБЛИЦЫ ===== */
+
+.table-wrap {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeTable 0.8s ease forwards;
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeTable {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
 </script>
 
 </body>
