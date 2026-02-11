@@ -3,35 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Каталог проектов</title>
+<title>Standoff Projects 30.0 FINAL</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
+:root{
+--bg:#000;
+--card:#111;
+--accent:#00ffe0;
+--text:#fff;
 }
 
 body{
-background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c1c1c);
-background-size:400% 400%;
-animation:gradient 15s ease infinite;
-color:white;
+margin:0;
+font-family:Segoe UI,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:0.4s;
+overflow-x:hidden;
 }
 
-@keyframes gradient{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+#particles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
 }
 
 header{
 text-align:center;
-padding:25px;
-font-size:28px;
+padding:30px;
+font-size:32px;
 font-weight:bold;
+text-shadow:0 0 15px var(--accent);
 }
+
+.controls{
+text-align:center;
+margin-bottom:20px;
+}
+
+button{
+padding:8px 15px;
+margin:5px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+background:var(--accent);
+color:black;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{opacity:0.85;}
 
 .search-box{
 text-align:center;
@@ -41,141 +66,268 @@ margin-bottom:20px;
 .search-box input{
 padding:10px;
 width:80%;
-max-width:400px;
-border-radius:10px;
+max-width:350px;
+border-radius:15px;
 border:none;
 outline:none;
+background:var(--card);
+color:var(--text);
 }
 
 .container{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:20px;
+gap:25px;
 padding:20px;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
-border-radius:20px;
+width:280px;
 padding:20px;
-width:300px;
-text-align:center;
-transition:0.3s;
-position:relative;
+border-radius:20px;
+background:var(--card);
+transition:0.5s;
+opacity:0;
+transform:translateY(40px);
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
 }
 
 .card:hover{
-transform:scale(1.05);
+transform:translateY(-10px);
+box-shadow:0 0 30px var(--accent);
 }
 
 .card img{
 width:100%;
 border-radius:15px;
-margin-bottom:15px;
-}
-
-.card h2{
 margin-bottom:10px;
 }
 
-.card p{
-font-size:14px;
-margin:4px 0;
-}
-
 .tag{
-position:absolute;
-top:15px;
-left:15px;
-background:#00c9a7;
-padding:5px 10px;
-border-radius:8px;
-font-size:12px;
-font-weight:bold;
-}
-
-button{
-margin-top:10px;
-padding:8px 15px;
-border:none;
+display:inline-block;
+padding:4px 10px;
 border-radius:10px;
-cursor:pointer;
-background:#00c9a7;
+background:var(--accent);
 color:black;
-font-weight:bold;
-transition:0.3s;
+font-size:12px;
+margin-bottom:10px;
 }
 
-button:hover{
-background:white;
+.about{
+text-align:center;
+padding:40px 20px;
+opacity:0.8;
+}
+
+.footer{
+text-align:center;
+padding:30px;
+opacity:0.6;
+}
+
+/* Modal */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+}
+
+.modal-content{
+background:var(--card);
+padding:25px;
+border-radius:20px;
+width:300px;
+text-align:center;
+box-shadow:0 0 25px var(--accent);
+}
+
+.close{
+margin-top:15px;
 }
 </style>
 </head>
-
 <body>
 
-<header>Каталог проектов</header>
+<canvas id="particles"></canvas>
+
+<header>⚡ STANDOFF PROJECTS 30.0 FINAL ⚡</header>
+
+<div class="controls">
+<button onclick="filterCards('all')">Все</button>
+<button onclick="filterCards('Android')">Android</button>
+<button onclick="filterCards('PC')">PC</button>
+<br><br>
+<button onclick="setTheme('dark')">Dark</button>
+<button onclick="setTheme('neon')">Neon</button>
+<button onclick="setTheme('purple')">Purple</button>
+</div>
 
 <div class="search-box">
-<input type="text" id="search" placeholder="Поиск..." onkeyup="searchFunction()">
+<input type="text" id="search" placeholder="Поиск..." onkeyup="searchCards()">
 </div>
 
 <div class="container">
 
-<!-- Zenin -->
-<div class="card">
-<span class="tag">Android</span>
+<div class="card" data-type="Android" onclick="openModal('Zenin','Android','15.9')">
 <img src="zenin.jpg">
+<div class="tag">Android</div>
 <h2>Zenin</h2>
-<p><b>Цена:</b> от $4</p>
-<p><b>Рейтинг:</b> ⭐⭐⭐⭐⭐</p>
-<button onclick="alert('Zenin\n\nВерсия: 15.9\nПлатформа: Android\nСтатус: Stable\nИсточник: Official Dev')">
-Подробнее
-</button>
+<p>Версия: 15.9</p>
 </div>
 
-<!-- Plutonium -->
-<div class="card">
-<span class="tag">Android</span>
+<div class="card" data-type="Android" onclick="openModal('Plutonium','Android','15.9')">
 <img src="plutonium.jpg">
+<div class="tag">Android</div>
 <h2>Plutonium</h2>
-<p><b>Цена:</b> от $3.99</p>
-<p><b>Рейтинг:</b> ⭐⭐⭐⭐⭐</p>
-<button onclick="alert('Plutonium\n\nВерсия: 15.9\nПлатформа: Android\nСтатус: Stable\nИсточник: Official Dev')">
-Подробнее
-</button>
+<p>Версия: 15.9</p>
 </div>
 
-<!-- NerestPC -->
-<div class="card">
-<span class="tag">PC</span>
+<div class="card" data-type="PC" onclick="openModal('NerestPC','PC','15.9')">
 <img src="nerestpc.jpg">
+<div class="tag">PC</div>
 <h2>NerestPC</h2>
-<p><b>Цена:</b> от $2.99</p>
-<p><b>Рейтинг:</b> ⭐⭐⭐⭐☆</p>
-<button onclick="alert('NerestPC\n\nВерсия: 15.9\nПлатформа: Windows\nСтатус: Stable\nИсточник: Official Dev')">
-Подробнее
-</button>
+<p>Версия: 15.9</p>
 </div>
 
+</div>
+
+<div class="about">
+<h2>О проекте</h2>
+<p>Каталог версий и визуальный проект. Финальная стабильная версия 30.0.</p>
+</div>
+
+<div class="footer">
+Release 30.0 FINAL • Stable Build
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<h2 id="modalTitle"></h2>
+<p id="modalInfo"></p>
+<button class="close" onclick="closeModal()">Закрыть</button>
+</div>
 </div>
 
 <script>
-function searchFunction(){
-let input = document.getElementById("search").value.toLowerCase();
-let cards = document.querySelectorAll(".card");
+/* Фильтр */
+function filterCards(type){
+localStorage.setItem("filter",type);
+applyFilters();
+}
+
+/* Поиск */
+function searchCards(){
+applyFilters();
+}
+
+/* Общая фильтрация */
+function applyFilters(){
+let filter=localStorage.getItem("filter")||"all";
+let search=document.getElementById("search").value.toLowerCase();
+let cards=document.querySelectorAll(".card");
 
 cards.forEach(card=>{
-let title = card.querySelector("h2").innerText.toLowerCase();
-if(title.includes(input)){
-card.style.display="block";
-}else{
-card.style.display="none";
-}
+let title=card.querySelector("h2").innerText.toLowerCase();
+let matchFilter=(filter==="all"||card.dataset.type===filter);
+let matchSearch=title.includes(search);
+card.style.display=(matchFilter&&matchSearch)?"block":"none";
 });
 }
+
+/* Темы */
+function setTheme(theme){
+localStorage.setItem("theme",theme);
+
+if(theme==="dark"){
+setColors("#000","#111","#00ffe0");
+}
+if(theme==="neon"){
+setColors("#050510","#0f0f2a","#00ff88");
+}
+if(theme==="purple"){
+setColors("#1a002b","#2d004d","#c400ff");
+}
+}
+
+function setColors(bg,card,accent){
+document.documentElement.style.setProperty('--bg',bg);
+document.documentElement.style.setProperty('--card',card);
+document.documentElement.style.setProperty('--accent',accent);
+}
+
+/* Modal */
+function openModal(name,platform,version){
+document.getElementById("modalTitle").innerText=name;
+document.getElementById("modalInfo").innerText=
+"Платформа: "+platform+"\nВерсия: "+version;
+document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+/* Scroll animation */
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+document.querySelectorAll(".card").forEach(card=>{
+observer.observe(card);
+});
+
+/* Load saved theme */
+let savedTheme=localStorage.getItem("theme");
+if(savedTheme){setTheme(savedTheme);}
+applyFilters();
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<100;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+dx:(Math.random()-0.5)*0.5,
+dy:(Math.random()-0.5)*0.5
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{
+p.x+=p.dx;
+p.y+=p.dy;
+if(p.x<0||p.x>canvas.width)p.dx*=-1;
+if(p.y<0||p.y>canvas.height)p.dy*=-1;
+
+ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--accent');
+ctx.beginPath();
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
